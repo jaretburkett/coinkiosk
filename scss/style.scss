@@ -151,30 +151,31 @@ body, html {
 //}
 //
 //// Small devices (landscape phones, 576px and up)
-//@media (min-width: 576px) {
-//  .bitcoin-price-box{
-//    .title{
-//      padding: 30px 40px 0;
-//      img{
-//        width: 300px;
-//      }
-//    }
-//    .price {
-//      font-size: 100px;
-//      line-height: 120px;
-//    }
-//    .price-sub{
-//      font-size:20px;
-//    }
-//  }
-//  .chart-box {
-//    padding: 0 40px 0 40px;
-//    opacity: 1;
-//  }
-//  .graph-title{
-//    opacity:1;
-//  }
-//}
+@media (min-width: 800px) {
+  .bitcoin-price-box{
+    .title{
+      padding: 30px 40px 0;
+      img{
+        width: 300px;
+      }
+    }
+    .price {
+      font-size: 70px;
+      line-height: 70px;
+      margin-top:15px;
+    }
+    .price-sub, .graph-title{
+      font-size:25px;
+    }
+  }
+  .chart-box {
+    padding: 0 40px 0 40px;
+    opacity: 1;
+  }
+  .graph-title{
+    opacity:1;
+  }
+}
 //
 //// Medium devices (tablets, 768px and up)
 //@media (min-width: 768px) {
@@ -215,24 +216,27 @@ body, html {
 //}
 //
 //// Extra large devices (large desktops, 1200px and up)
-//@media (min-width: 1200px) {
-//  .bitcoin-price-box{
-//    .title{
-//      padding: 40px 40px 0;
-//      img{
-//        width:600px;
-//      }
-//    }
-//    .price {
-//      font-size: 160px;
-//      line-height: 180px;
-//    }
-//    .price-sub{
-//      font-size:20px;
-//    }
-//  }
-//
-//}
+@media (min-width: 1200px) {
+  .bitcoin-price-box{
+    .title{
+      padding: 30px 40px 0;
+      img{
+        width:500px;
+      }
+
+    }
+    .price {
+      font-size: 110px;
+      line-height: 110px;
+      margin-top:10px;
+    }
+    .price-sub, .graph-title{
+      font-size:30px;
+      line-height: 50px;
+    }
+  }
+
+}
 
 .settings-list {
   color:#ccc;

@@ -75,3 +75,6 @@ setInterval(function () {
 http.listen(port, function(){
     console.log('listening on *:' + port);
 });
+
+// send websocket reload on app boot
+io.emit('reload', true);

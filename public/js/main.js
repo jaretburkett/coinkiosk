@@ -20,6 +20,9 @@ $(function () {
         bitcoinChart.update();
         bitcoinChart.resize();
     });
+    socket.on('reload', function(data){
+        location.reload();
+    });
 });
 
 function formatNumber(x) {
