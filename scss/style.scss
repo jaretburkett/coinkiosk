@@ -169,7 +169,7 @@ body, html {
     }
   }
   .chart-box {
-    padding: 0 40px 0 40px;
+    padding: 0;
     opacity: 1;
   }
   .graph-title{
@@ -288,4 +288,7 @@ body, html {
       display:inline-block;
     }
   }
+}
+#bitcoin-chart{
+  width:100%;
 }
