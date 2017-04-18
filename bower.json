@@ -1,0 +1,24 @@
+{
+  "name": "minerkiosk",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Jaret Burkett <jaretburkett@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "bootstrap-sass": "^3.3.7",
+    "font-awesome": "^4.7.0",
+    "chart.js": "^2.5.0",
+    "moment": "^2.18.1"
+  }
+}
