@@ -9,6 +9,7 @@ var port = process.env.PORT || 3000;
 
 var bitcoinPrice = 0;
 var bitcoinHistorical={};
+var isFirstRun = true;
 
 var CoinDesk = require("node-coindesk");
 var coindesk = new CoinDesk();
@@ -33,6 +34,11 @@ app.use('/', express.static(path.join(__dirname, 'bower_components')));
 io.on('connection', function(socket){
     getPrice();
     getBitcoinHistorical();
+    if(isFirstRun){
+        // send websocket reload on app boot
+        io.emit('reload', true);
+        isFirstRun = false;
+    }
 });
 
 function getBitcoinHistorical() {
