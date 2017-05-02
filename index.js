@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var path = require('path');
+var coinbase = require('./modules/coinbase');
 var sassMiddleware = require('node-sass-middleware');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -59,15 +60,23 @@ function getBitcoinHistorical() {
 }
 
 function getPrice() {
-    coindesk.currentPrice(function (data) {
+    coinbase.getBTCprice(function(err, price){
         try{
-            data = JSON.parse(data);
-            bitcoinPrice = data.bpi.USD.rate_float.toFixed(2);
-            io.emit('bitcoinPrice', bitcoinPrice);
+            io.emit('bitcoinPrice', price);
         } catch(e){
 
         }
     });
+    //
+    // coindesk.currentPrice(function (data) {
+    //     try{
+    //         data = JSON.parse(data);
+    //         bitcoinPrice = data.bpi.USD.rate_float.toFixed(2);
+    //         io.emit('bitcoinPrice', bitcoinPrice);
+    //     } catch(e){
+    //
+    //     }
+    // });
 }
 
 // get bitcoin prices
