@@ -119,38 +119,7 @@ body, html {
   display: flex;
   background:lighten($bitcoin-gray, 10%);
 }
-//
-//@media (min-width: 300px) {
-//  .bitcoin-price-box{
-//    .title{
-//      padding: 10px 40px 0;
-//      img{
-//        width:250px;
-//      }
-//    }
-//    .price {
-//      font-size: 60px;
-//      line-height: 70px;
-//    }
-//  }
-//}
-//
-//@media (min-width: 440px) {
-//  .bitcoin-price-box{
-//    .title{
-//      padding: 20px 40px 0;
-//      img{
-//        width:250px;
-//      }
-//    }
-//    .price {
-//      font-size: 80px;
-//      line-height: 100px;
-//    }
-//  }
-//}
-//
-//// Small devices (landscape phones, 576px and up)
+
 @media (min-width: 800px) {
   .bitcoin-price-box{
     .title{
@@ -176,52 +145,15 @@ body, html {
     opacity:1;
   }
 }
-//
-//// Medium devices (tablets, 768px and up)
-//@media (min-width: 768px) {
-//  .bitcoin-price-box{
-//    .title{
-//      padding: 40px 40px 0;
-//      img{
-//        width: 400px;
-//      }
-//    }
-//    .price {
-//      font-size: 130px;
-//      line-height: 140px;
-//    }
-//    .price-sub{
-//      font-size:20px;
-//    }
-//  }
-//}
-//
-//// Large devices (desktops, 992px and up)
-//@media (min-width: 992px) {
-//  .bitcoin-price-box{
-//    .title{
-//      padding: 40px 40px 0;
-//      img{
-//        width:600px;
-//      }
-//    }
-//    .price {
-//      font-size: 160px;
-//      line-height: 180px;
-//    }
-//    .price-sub{
-//      font-size:20px;
-//    }
-//  }
-//}
-//
-//// Extra large devices (large desktops, 1200px and up)
+
 @media (min-width: 1200px) {
   .bitcoin-price-box{
+    padding-bottom:20px;
     .title{
-      padding: 30px 40px 0;
+      padding: 25px 40px 0;
       img{
-        width:500px;
+        width:auto;
+        height:100px;
       }
 
     }
@@ -292,3 +224,76 @@ body, html {
 #bitcoin-chart{
   width:100%;
 }
+
+.bitcoin-price-box{
+  &.zcash{
+    background: #3a7594;
+    padding-bottom: 16px;
+    .price{
+      color:#e2e2e2;
+    }
+    .title{
+      padding: 15px 40px 0;
+      img{
+        height:120px;
+      }
+    }
+  }
+  // etherium
+  &.etherium{
+    background: #363946;
+    padding-bottom: 16px;
+    .price{
+      color:#8a92b2;
+    }
+    .title{
+      padding: 15px 40px 0;
+      img{
+        height:120px;
+      }
+    }
+  }
+  // etherium
+  &.etheriumClassic{
+    background: #36463f;
+    padding-bottom: 16px;
+    .price{
+      color:#9bcf91;
+    }
+    .title{
+      padding: 15px 40px 0;
+      img{
+        height:120px;
+      }
+    }
+  }
+  // monero
+  &.monero{
+    background: #612e25;
+    padding-bottom: 16px;
+    .price{
+      color:#ff6726;
+    }
+    .title{
+      padding: 15px 40px 0;
+      img{
+        height:120px;
+      }
+    }
+  }
+  // dash
+  &.dash{
+    background: #142e3e;
+    padding-bottom: 16px;
+    .price{
+      color:#0075ba;
+    }
+    .title{
+      padding: 30px 40px 0;
+      img{
+        height:90px;
+      }
+    }
+  }
+}
+

@@ -7,6 +7,7 @@
     "express": "^4.15.2",
     "node-coindesk": "^0.2.0",
     "node-sass-middleware": "^0.11.0",
+    "poloniex.js": "0.0.7",
     "request-json": "^0.6.2",
     "socket.io": "^1.7.3"
   },

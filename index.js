@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var coinbase = require('./modules/coinbase');
+var polo = require('./modules/poloniex');
 var sassMiddleware = require('node-sass-middleware');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -33,8 +34,8 @@ app.use('/', express.static(path.join(__dirname, 'bower_components')));
 
 // websocket stuff
 io.on('connection', function(socket){
-    getPrice();
-    getBitcoinHistorical();
+    getBTCPrice();
+    getPoloPrices();
     if(isFirstRun){
         // send websocket reload on app boot
         io.emit('reload', true);
@@ -42,24 +43,7 @@ io.on('connection', function(socket){
     }
 });
 
-function getBitcoinHistorical() {
-    var start_date = new Date();
-    var end_date = new Date();
-    end_date.setDate(start_date.getDate() - 30);
-    coindesk.historical({start_date: start_date, end_date: end_date}, function (data) {
-        try {
-            data = JSON.parse(data);
-            bitcoinHistorical = data.bpi;
-            console.log(data);
-            io.emit('bitcoinHistorical', bitcoinHistorical);
-        } catch(e){
-
-        }
-
-    });
-}
-
-function getPrice() {
+function getBTCPrice() {
     coinbase.getBTCprice(function(err, price){
         try{
             io.emit('bitcoinPrice', price.toFixed(2));
@@ -67,24 +51,24 @@ function getPrice() {
 
         }
     });
-    //
-    // coindesk.currentPrice(function (data) {
-    //     try{
-    //         data = JSON.parse(data);
-    //         bitcoinPrice = data.bpi.USD.rate_float.toFixed(2);
-    //         io.emit('bitcoinPrice', bitcoinPrice);
-    //     } catch(e){
-    //
-    //     }
-    // });
+}
+function getPoloPrices() {
+    polo.getPrices(function(err, price){
+        try{
+            io.emit('poloPrices', price);
+        } catch(e){
+
+        }
+    });
 }
 
 // get bitcoin prices
-getPrice();
-getBitcoinHistorical();
+getBTCPrice();
+getPoloPrices();
+
 setInterval(function () {
-    getPrice();
-    getBitcoinHistorical();
+    getBTCPrice();
+    getPoloPrices();
 }, 60000);
 
 http.listen(port, function(){
