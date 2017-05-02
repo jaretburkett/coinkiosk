@@ -62,7 +62,7 @@ function getBitcoinHistorical() {
 function getPrice() {
     coinbase.getBTCprice(function(err, price){
         try{
-            io.emit('bitcoinPrice', price);
+            io.emit('bitcoinPrice', price.toFixed(2));
         } catch(e){
 
         }
