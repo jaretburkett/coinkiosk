@@ -62,236 +62,93 @@ body, html {
   flex-direction: column;
 }
 
-.footer {
-  height: $footer-height;
-  background: $footer-bg;
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  line-height: $footer-height;
-  color: $footer-color;
-
-  a {
-    line-height: $footer-height;
-    color: $footer-color;
-    height: $footer-height;
-    padding: 7px 10px;
-    &:hover {
-      color: $footer-color;
-      background: darken($footer-bg, 5%);
-      text-decoration: none;
-    }
-  }
-}
 
 .bitcoin-price-box{
   text-align: center;
+  line-height: 100px;
+  .row, .col-xs-6{
+    height:100%;
+  }
   .title{
-    padding: 5px;
+    padding:0;
+    height:100%;
     img{
-      width:150px;
-      max-width:100%;
+      width:auto;
+      height:100px;
+      max-height: 100%;
+      padding:10px 0;
     }
   }
   .price {
     color: $bitcoin-orange;
-    font-size: 30px;
     font-weight: bold;
-    line-height: 30px;
-    padding: 7px 5px 4px;
-  }
-  .price-sub{
-    color:darken($bitcoin-white, 10%);
-    font-size:14px;
-  }
-}
-.graph-title{
-  text-align: center;
-  color: $bitcoin-orange;
-  font-size:14px;
-}
-
-.chart-box{
-  padding: 0;
-  flex-grow: 1;
-  display: flex;
-  background:lighten($bitcoin-gray, 10%);
-}
-
-@media (min-width: 800px) {
-  .bitcoin-price-box{
-    .title{
-      padding: 30px 40px 0;
-      img{
-        width: 300px;
-      }
-    }
-    .price {
-      font-size: 70px;
-      line-height: 70px;
-      margin-top:15px;
-    }
-    .price-sub, .graph-title{
-      font-size:25px;
-    }
-  }
-  .chart-box {
-    padding: 0;
-    opacity: 1;
-  }
-  .graph-title{
-    opacity:1;
+    font-size: 110px;
   }
 }
 
-@media (min-width: 1200px) {
-  .bitcoin-price-box{
-    padding-bottom:20px;
-    .title{
-      padding: 25px 40px 0;
-      img{
-        width:auto;
-        height:100px;
-      }
-
-    }
-    .price {
-      font-size: 110px;
-      line-height: 110px;
-      margin-top:10px;
-    }
-    .price-sub, .graph-title{
-      font-size:30px;
-      line-height: 50px;
-    }
-  }
-
-}
-
-.settings-list {
-  color:#ccc;
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    background-color: $bitcoin-gray;
-  }
-
-  li a {
-    display: block;
-    color: $bitcoin-white;
-    padding: 8px 16px;
-    text-decoration: none;
-  }
-
-  /* Change the link color on hover */
-  li a:hover {
-    background-color: lighten($bitcoin-gray, 10%);
-    color: $bitcoin-white;
-  }
-}
-
-#hover-menu{
-  position:absolute;
-  top:0;
-  right:0;
-  a{
-    color: #ccc;
-    padding: 5px;
-    display: block;
-    font-size: 16px;
-    line-height: 16px;
-    text-align: right;
-    cursor:pointer;
-    &:hover{
-      background: rgba(204, 204, 204, 0.9);
-      color: #000;
-      border-bottom-left-radius: 10px;
-      border-top-left-radius: 10px;
-    }
-    .text{
-      display:none;
-      font-size: 15px;
-    }
-    &:hover .text{
-      display:inline-block;
-    }
-  }
-}
-#bitcoin-chart{
-  width:100%;
-}
 
 .bitcoin-price-box{
   &.zcash{
     background: #3a7594;
-    padding-bottom: 16px;
     .price{
       color:#e2e2e2;
     }
     .title{
-      padding: 15px 40px 0;
       img{
         height:120px;
+        max-height: 100%;
       }
     }
   }
   // etherium
   &.etherium{
     background: #363946;
-    padding-bottom: 16px;
     .price{
       color:#8a92b2;
     }
     .title{
-      padding: 15px 40px 0;
       img{
         height:120px;
+        max-height: 100%;
       }
     }
   }
   // etherium
   &.etheriumClassic{
     background: #36463f;
-    padding-bottom: 16px;
     .price{
       color:#9bcf91;
     }
     .title{
-      padding: 15px 40px 0;
       img{
         height:120px;
+        max-height: 100%;
       }
     }
   }
   // monero
   &.monero{
     background: #612e25;
-    padding-bottom: 16px;
     .price{
       color:#ff6726;
     }
     .title{
-      padding: 15px 40px 0;
       img{
         height:120px;
+        max-height: 100%;
       }
     }
   }
   // dash
   &.dash{
     background: #142e3e;
-    padding-bottom: 16px;
     .price{
       color:#0075ba;
     }
     .title{
-      padding: 30px 40px 0;
       img{
         height:90px;
+        max-height: 100%;
       }
     }
   }

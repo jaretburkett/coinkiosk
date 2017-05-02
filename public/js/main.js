@@ -26,6 +26,7 @@ $(function () {
     socket.on('reload', function(data){
         location.reload();
     });
+    heightFix();
 });
 
 function formatNumber(x) {
@@ -39,4 +40,22 @@ function sortDivs(){
     // tinysort(child_nodes,{attr:'data-price'});
     $('div#sortable>.bitcoin-price-box').tsort({attr:'data-price', order:'desc'});
     // console.log($('.sortable').children('.bitcoin-price-box'));
+}
+
+
+function heightFix() {
+    var n = $('.bitcoin-price-box').length;
+    console.log('There are '+ n + ' divs');
+    var heights = $( window ).height() / n;
+    $('.bitcoin-price-box').height(heights);
+    $('.bitcoin-price-box .title').css({
+        lineHeight:heights+'px'
+    });
+    $('.bitcoin-price-box').css({
+        lineHeight:heights+'px'
+    });
+    $('.bitcoin-price-box .price').css({
+        lineHeight:heights+'px',
+        fontSize:heights < 110 ? (heights*.9)+'px' : '110px'
+    });
 }
