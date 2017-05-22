@@ -1,23 +1,30 @@
 var socket = io();
+var btcPrice = 0;
 $(function () {
     // var socket = io();
     socket.on('bitcoinPrice', function(bitcoinPrice){
         $('.bitcoin-price').html(formatNumber(bitcoinPrice));
+        btcPrice = parseFloat(bitcoinPrice);
     });
     socket.on('poloPrices', function(price){
         $('.etherium-price').html(parseFloat(price.ETH).toFixed(5));
+        $('.etherium-usd-price').html(btcToUsd(price.ETH));
         $('.bitcoin-price-box.etherium').attr('data-price', parseFloat(price.ETH).toFixed(5)*100000);
 
         $('.etheriumClassic-price').html(parseFloat(price.ETC).toFixed(5));
+        $('.etheriumClassic-usd-price').html(btcToUsd(price.ETC));
         $('.bitcoin-price-box.etheriumClassic').attr('data-price', parseFloat(price.ETC).toFixed(5)*100000);
 
         $('.zcash-price').html(parseFloat(price.ZEC).toFixed(5));
+        $('.zcash-usd-price').html(btcToUsd(price.ZEC));
         $('.bitcoin-price-box.zcash').attr('data-price', parseFloat(price.ZEC).toFixed(5)*100000);
 
         $('.dash-price').html(parseFloat(price.DASH).toFixed(5));
+        $('.dash-usd-price').html(btcToUsd(price.DASH));
         $('.bitcoin-price-box.dash').attr('data-price', parseFloat(price.DASH).toFixed(5)*100000);
 
         $('.monero-price').html(parseFloat(price.XMR).toFixed(5));
+        $('.monero-usd-price').html(btcToUsd(price.XMR));
         $('.bitcoin-price-box.monero').attr('data-price', parseFloat(price.XMR).toFixed(5)*100000);
 
         // sort them sortDivs
@@ -28,6 +35,10 @@ $(function () {
     });
     heightFix();
 });
+
+function btcToUsd(btcAmount){
+    return formatNumber((parseFloat(btcAmount) * btcPrice).toFixed(2));
+}
 
 function formatNumber(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

@@ -23,12 +23,17 @@
 
     <div class="bitcoin-price-box">
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-4">
                 <div class="title">
                     <img src="/img/bitcoin-logo-on-black.png">
                 </div>
             </div>
-            <div class="col-xs-6 text-center">
+            <div class="col-xs-4 text-center">
+                <div class="price">
+                    <i class="fa fa-btc" aria-hidden="true"></i> 1.00000
+                </div>
+            </div>
+            <div class="col-xs-4 text-center">
                 <div class="price">
                     $<span class="bitcoin-price"></span>
                 </div>
@@ -38,28 +43,44 @@
     <div id="sortable" class="sortable">
         <div class="bitcoin-price-box zcash" data-price="0">
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-xs-4
+">
                     <div class="title">
                         <img src="/img/zcash-on-black.png">
                     </div>
                 </div>
-                <div class="col-xs-6 text-center">
+                <div class="col-xs-4
+                 text-center">
                     <div class="price">
                         <i class="fa fa-btc" aria-hidden="true"></i> <span class="zcash-price"></span>
+                    </div>
+                </div>
+                <div class="col-xs-4
+                 text-center">
+                    <div class="price">
+                        $<span class="zcash-usd-price"></span>
                     </div>
                 </div>
             </div>
         </div>
         <div class="bitcoin-price-box etherium" data-price="0">
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-xs-4
+">
                     <div class="title">
                         <img src="/img/etherium.png">
                     </div>
                 </div>
-                <div class="col-xs-6 text-center">
+                <div class="col-xs-4
+                 text-center">
                     <div class="price">
                         <i class="fa fa-btc" aria-hidden="true"></i> <span class="etherium-price"></span>
+                    </div>
+                </div>
+                <div class="col-xs-4
+                 text-center">
+                    <div class="price">
+                        $<span class="etherium-usd-price"></span>
                     </div>
                 </div>
             </div>
@@ -67,14 +88,22 @@
 
         <div class="bitcoin-price-box etheriumClassic" data-price="0">
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-xs-4
+">
                     <div class="title">
                         <img src="/img/etherium-classic.png">
                     </div>
                 </div>
-                <div class="col-xs-6 text-center">
+                <div class="col-xs-4
+                 text-center">
                     <div class="price">
                         <i class="fa fa-btc" aria-hidden="true"></i> <span class="etheriumClassic-price"></span>
+                    </div>
+                </div>
+                <div class="col-xs-4
+                 text-center">
+                    <div class="price">
+                        $<span class="etheriumClassic-usd-price"></span>
                     </div>
                 </div>
             </div>
@@ -82,14 +111,22 @@
 
         <div class="bitcoin-price-box monero" data-price="0">
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-xs-4
+">
                     <div class="title">
                         <img src="/img/monero.png">
                     </div>
                 </div>
-                <div class="col-xs-6 text-center">
+                <div class="col-xs-4
+                 text-center">
                     <div class="price">
                         <i class="fa fa-btc" aria-hidden="true"></i> <span class="monero-price"></span>
+                    </div>
+                </div>
+                <div class="col-xs-4
+                 text-center">
+                    <div class="price">
+                        $<span class="monero-usd-price"></span>
                     </div>
                 </div>
             </div>
@@ -97,14 +134,22 @@
 
         <div class="bitcoin-price-box dash" data-price="0">
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-xs-4
+">
                     <div class="title">
                         <img src="/img/dash.png">
                     </div>
                 </div>
-                <div class="col-xs-6 text-center">
+                <div class="col-xs-4
+                 text-center">
                     <div class="price">
                         <i class="fa fa-btc" aria-hidden="true"></i> <span class="dash-price"></span>
+                    </div>
+                </div>
+                <div class="col-xs-4
+                 text-center">
+                    <div class="price">
+                        $<span class="dash-usd-price"></span>
                     </div>
                 </div>
             </div>
@@ -122,8 +167,8 @@
 
 <script src="/jquery/dist/jquery.min.js"></script>
 <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tinysort/2.3.6/tinysort.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tinysort/2.3.6/jquery.tinysort.js"></script>
+<script src="/js/plugins/tinysort.js"></script>
+<script src="/js/plugins/jquery.tinysort.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/moment/min/moment.min.js"></script>
 <script src="/chart.js/dist/Chart.bundle.min.js"></script>
