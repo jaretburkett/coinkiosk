@@ -1,24 +1,20 @@
-var express = require('express');
-var app = express();
-var path = require('path');
-var coinbase = require('./modules/coinbase');
-var polo = require('./modules/poloniex');
-var sassMiddleware = require('node-sass-middleware');
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var port = process.env.PORT || 3000;
+const express = require('express');
+const app = express();
+const path = require('path');
+const coinbase = require('./modules/coinbase');
+const polo = require('./modules/poloniex');
+const sassMiddleware = require('node-sass-middleware');
+const http = require('http').Server(app);
+const cmc = require('./modules/coinMarketCap');
+const io = require('socket.io')(http);
+const port = process.env.PORT || 3000;
 
-
-var bitcoinPrice = 0;
-var bitcoinHistorical={};
-var isFirstRun = true;
-
-var CoinDesk = require("node-coindesk");
-var coindesk = new CoinDesk();
+let isFirstRun = true;
 
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 });
+
 app.use(sassMiddleware({
     /* Options */
     src: path.join(__dirname, 'scss'),
@@ -34,8 +30,7 @@ app.use('/', express.static(path.join(__dirname, 'bower_components')));
 
 // websocket stuff
 io.on('connection', function(socket){
-    getBTCPrice();
-    getPoloPrices();
+    sendPrices();
     if(isFirstRun){
         // send websocket reload on app boot
         io.emit('reload', true);
@@ -43,32 +38,65 @@ io.on('connection', function(socket){
     }
 });
 
-function getBTCPrice() {
-    coinbase.getBTCprice(function(err, price){
-        try{
-            io.emit('bitcoinPrice', price.toFixed(2));
-        } catch(e){
+let bitcoinPrice = '1';
+let altCoinPrices = {};
 
+function getPrices() {
+    coinbase.getBTCprice(function(err, price){
+        if(err) {
+            console.log(err);
+        }else {
+            bitcoinPrice = price.toFixed(2);
         }
+        getAtlcoins();
     });
 }
-function getPoloPrices() {
+function getPoloPrices(callback) {
     polo.getPrices(function(err, price){
-        try{
-            io.emit('poloPrices', price);
-        } catch(e){
-
+        if(err){
+            console.log(err);
+        } else {
+            for(let ticker in price){
+                altCoinPrices[ticker] = price[ticker];
+            }
         }
+        callback();
     });
+}
+
+function getCoinMarketCapPrices(callback){
+    cmc.getPrices(function(err, price){
+        if(err){
+            console.log(err);
+        } else {
+            for(let ticker in price){
+                altCoinPrices[ticker] = price[ticker];
+            }
+        }
+        callback();
+    });
+}
+
+function getAtlcoins(){
+    getPoloPrices(function(){
+        getCoinMarketCapPrices(function(){
+            sendPrices();
+        })
+    });
+}
+
+function sendPrices(){
+    io.emit('bitcoinPrice', bitcoinPrice);
+    setTimeout(function(){
+        io.emit('altPrices', altCoinPrices);
+    }, 1000);
 }
 
 // get bitcoin prices
-getBTCPrice();
-getPoloPrices();
+getPrices();
 
 setInterval(function () {
-    getBTCPrice();
-    getPoloPrices();
+    getPrices();
 }, 60000);
 
 http.listen(port, function(){

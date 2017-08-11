@@ -6,7 +6,11 @@ $(function () {
         $('.bitcoin-price').html(formatNumber(bitcoinPrice));
         btcPrice = parseFloat(bitcoinPrice);
     });
-    socket.on('poloPrices', function(price){
+    socket.on('altPrices', function(price){
+        $('.bch-price').html(parseFloat(price.BCH).toFixed(5));
+        $('.bch-usd-price').html(btcToUsd(price.BCH));
+        $('.bitcoin-price-box.bch').attr('data-price', parseFloat(price.BCH).toFixed(5)*100000);
+
         $('.etherium-price').html(parseFloat(price.ETH).toFixed(5));
         $('.etherium-usd-price').html(btcToUsd(price.ETH));
         $('.bitcoin-price-box.etherium').attr('data-price', parseFloat(price.ETH).toFixed(5)*100000);

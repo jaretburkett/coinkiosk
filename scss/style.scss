@@ -73,10 +73,9 @@ body, html {
     padding:0;
     height:100%;
     img{
-      width:auto;
-      height:100px;
-      max-height: 100%;
-      padding:10px 0;
+      width: 430px;
+      height:auto;
+      max-width: 100%;
     }
   }
   .price {
@@ -88,6 +87,17 @@ body, html {
 
 
 .bitcoin-price-box{
+  &.bch{
+    background: #2f3431;
+    .price{
+      color:#66991b;
+    }
+    .title{
+      img{
+        padding:0 1px;
+      }
+    }
+  }
   &.zcash{
     background: #3a7594;
     .price{
@@ -95,8 +105,7 @@ body, html {
     }
     .title{
       img{
-        height:120px;
-        max-height: 100%;
+        padding:0 50px;
       }
     }
   }
@@ -108,8 +117,7 @@ body, html {
     }
     .title{
       img{
-        height:120px;
-        max-height: 100%;
+        padding:0 10px;
       }
     }
   }
@@ -121,8 +129,7 @@ body, html {
     }
     .title{
       img{
-        height:120px;
-        max-height: 100%;
+        padding:0 10px;
       }
     }
   }
@@ -134,8 +141,7 @@ body, html {
     }
     .title{
       img{
-        height:120px;
-        max-height: 100%;
+        padding:0 25px;
       }
     }
   }
@@ -147,8 +153,7 @@ body, html {
     }
     .title{
       img{
-        height:90px;
-        max-height: 100%;
+        padding:0 1px;
       }
     }
   }
