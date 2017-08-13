@@ -40,6 +40,7 @@ io.on('connection', function(socket){
 
 let bitcoinPrice = '1';
 let altCoinPrices = {};
+let chartData = {};
 
 function getPrices() {
     coinbase.getBTCprice(function(err, price){
@@ -63,6 +64,18 @@ function getPoloPrices(callback) {
         callback();
     });
 }
+function getPoloChartData(callback){
+    polo.getChartData(function(err, price){
+        if(err){
+            console.log(err);
+        } else {
+            for(let ticker in price){
+                chartData[ticker] = price[ticker];
+            }
+        }
+        callback();
+    });
+}
 
 function getCoinMarketCapPrices(callback){
     cmc.getPrices(function(err, price){
@@ -80,7 +93,9 @@ function getCoinMarketCapPrices(callback){
 function getAtlcoins(){
     getPoloPrices(function(){
         getCoinMarketCapPrices(function(){
-            sendPrices();
+            getPoloChartData(function(){
+                sendPrices();
+            });
         })
     });
 }
@@ -89,6 +104,9 @@ function sendPrices(){
     io.emit('bitcoinPrice', bitcoinPrice);
     setTimeout(function(){
         io.emit('altPrices', altCoinPrices);
+        setTimeout(function(){
+            io.emit('chartData', chartData);
+        }, 1000);
     }, 1000);
 }
 
