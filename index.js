@@ -7,7 +7,7 @@ const sassMiddleware = require('node-sass-middleware');
 const http = require('http').Server(app);
 const cmc = require('./modules/coinMarketCap');
 const io = require('socket.io')(http);
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8484;
 
 let isFirstRun = true;
 
