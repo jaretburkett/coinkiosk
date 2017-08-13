@@ -1,6 +1,10 @@
 var socket = io();
 var btcPrice = 0;
+
 $(function () {
+    $( window ).resize(function() {
+        sizeFix();
+    });
     // var socket = io();
     socket.on('bitcoinPrice', function(bitcoinPrice){
         $('.bitcoin-price').html(formatNumber(bitcoinPrice));
@@ -37,7 +41,7 @@ $(function () {
     socket.on('reload', function(data){
         location.reload();
     });
-    heightFix();
+    sizeFix();
 });
 
 function btcToUsd(btcAmount){
@@ -58,9 +62,9 @@ function sortDivs(){
 }
 
 
-function heightFix() {
+function sizeFix() {
     var n = $('.bitcoin-price-box').length;
-    console.log('There are '+ n + ' divs');
+    // console.log('There are '+ n + ' divs');
     var heights = $( window ).height() / n;
     $('.bitcoin-price-box').height(heights);
     $('.bitcoin-price-box .title').css({
@@ -70,7 +74,22 @@ function heightFix() {
         lineHeight:heights+'px'
     });
     $('.bitcoin-price-box .price').css({
-        lineHeight:heights+'px',
+        // lineHeight:heights+'px',
         fontSize:heights < 110 ? (heights*.9)+'px' : '110px'
     });
+    textFill();
+}
+function textFill(){
+    //smallest size
+    var smallestSize = 120;
+        var $this = $('.price').first();
+        var $parent = $('.price').first().parent();
+
+        if($this.height() > $parent.height()){
+            $('.price').css('fontSize', $parent.height()+'px');
+        } else {
+            $('.price').css('fontSize', $this.height()+'px');
+        }
+    // var size = $( document ).width() *.05;
+    // $('.price').css('fontSize',size + 'px').css('lineHeight', $('.price').height()+'px');
 }
