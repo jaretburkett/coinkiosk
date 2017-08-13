@@ -1,33 +1,46 @@
-var Poloniex = require('poloniex.js');
-var poloniex = new Poloniex();
+const Poloniex = require('poloniex.js');
+const poloniex = new Poloniex();
+const moment = require('moment');
+
+const cur = [
+    {
+        objKey:'ZEC',
+        tickerName:'BTC_ZEC'
+    },
+    {
+        objKey:'XMR',
+        tickerName:'BTC_XMR'
+    },
+    {
+        objKey:'DASH',
+        tickerName:'BTC_DASH'
+    },
+    {
+        objKey:'ETH',
+        tickerName:'BTC_ETH'
+    },
+    {
+        objKey:'ETC',
+        tickerName:'BTC_ETC'
+    },
+    {
+        objKey:'LTC',
+        tickerName:'BTC_LTC'
+    }
+];
 
 
-var getPrices = function(callback){
+const getPrices = function(callback){
     poloniex.returnTicker(function(err, data) {
         if (err){
             callback(err, null);
         }
-        var price = {};
-        for(var exchange in data){
-            switch (exchange){
-                case 'BTC_ZEC':
-                    price.ZEC = data[exchange].highestBid;
-                    break;
-                case 'BTC_XMR':
-                    price.XMR = data[exchange].highestBid;
-                    break;
-                case 'BTC_DASH':
-                    price.DASH = data[exchange].highestBid;
-                    break;
-                case 'BTC_ETH':
-                    price.ETH = data[exchange].highestBid;
-                    break;
-                case 'BTC_ETC':
-                    price.ETC = data[exchange].highestBid;
-                    break;
-                case 'BTC_LTC':
-                    price.LTC = data[exchange].highestBid;
-                    break;
+        let price = {};
+        for(let exchange in data){
+            for(let i = 0; i < cur.length; i++){
+                if(exchange === cur[i].tickerName){
+                    price[cur[i].objKey] = data[exchange].highestBid;
+                }
             }
         }
         callback(false,price);
