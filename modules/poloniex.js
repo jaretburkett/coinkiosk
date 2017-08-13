@@ -25,6 +25,9 @@ var getPrices = function(callback){
                 case 'BTC_ETC':
                     price.ETC = data[exchange].highestBid;
                     break;
+                case 'BTC_LTC':
+                    price.LTC = data[exchange].highestBid;
+                    break;
             }
         }
         callback(false,price);

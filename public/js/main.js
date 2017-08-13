@@ -23,6 +23,10 @@ $(function () {
         $('.etheriumClassic-usd-price').html(btcToUsd(price.ETC));
         $('.bitcoin-price-box.etheriumClassic').attr('data-price', parseFloat(price.ETC).toFixed(5)*100000);
 
+        $('.ltc-price').html(parseFloat(price.LTC).toFixed(5));
+        $('.ltc-usd-price').html(btcToUsd(price.LTC));
+        $('.bitcoin-price-box.ltc').attr('data-price', parseFloat(price.LTC).toFixed(5)*100000);
+
         $('.zcash-price').html(parseFloat(price.ZEC).toFixed(5));
         $('.zcash-usd-price').html(btcToUsd(price.ZEC));
         $('.bitcoin-price-box.zcash').attr('data-price', parseFloat(price.ZEC).toFixed(5)*100000);

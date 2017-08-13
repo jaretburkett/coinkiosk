@@ -120,6 +120,17 @@ body, html {
       }
     }
   }
+  &.ltc {
+    background: #626264;
+    .price {
+      color: #bebebe;
+    }
+    .title {
+      img {
+        //padding:0 50px;
+      }
+    }
+  }
   // etherium
   &.etherium {
     background: #363946;
