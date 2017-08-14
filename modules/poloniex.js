@@ -35,6 +35,10 @@ const cur = [
     {
         objKey:'LTC',
         tickerName:'BTC_LTC'
+    },
+    {
+        objKey:'BCH',
+        tickerName:'BTC_BCH'
     }
 ];
 

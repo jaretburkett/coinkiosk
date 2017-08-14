@@ -14,6 +14,8 @@ var color = {
     XMR:'#ff6726'
 };
 
+
+
 $(function () {
     $(window).resize(function () {
         sizeFix();
@@ -170,7 +172,7 @@ function makeGraph(data, ticker, color, compare) {
                 yAxes: [{
                     ticks: {
                         min: lowest,
-                        max: highest
+                        max: highest * 1.01
                     },
                     display: false
                 }],

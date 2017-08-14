@@ -1,0 +1,66 @@
+{
+  "BTC":{
+    "color": {
+      "text":"#eda049",
+      "background":"#444444"
+    },
+    "logo":"bitcoin-logo-on-black.png",
+    "tickerName":"USDT_BTC"
+  },
+  "BCH": {
+    "color": {
+      "text":"#66991b",
+      "background":"#2f3431"
+    },
+    "logo":"bitcoinCashWhite.svg",
+    "tickerName":null
+  },
+  "ZEC": {
+    "color": {
+      "text":"#e2e2e2",
+      "background":"#3a7594"
+    },
+    "logo":"zcash-on-black.png",
+    "tickerName":"BTC_ZEC"
+  },
+  "LTC": {
+    "color": {
+      "text":"#bebebe",
+      "background":"#626264"
+    },
+    "logo":"litecoin.svg",
+    "tickerName":"BTC_LTC"
+  },
+  "ETH": {
+    "color": {
+      "text":"#8a92b2",
+      "background":"#363946"
+    },
+    "logo":"etherium.png",
+    "tickerName":"BTC_ETH"
+  },
+  "ETC": {
+    "color": {
+      "text":"#9bcf91",
+      "background":"#36463f"
+    },
+    "logo":"etherium-classic.png",
+    "tickerName":"BTC_ETC"
+  },
+  "DASH": {
+    "color": {
+      "text":"#0075ba",
+      "background":"#142e3e"
+    },
+    "logo":"monero.png",
+    "tickerName":"BTC_DASH"
+  },
+  "XMR": {
+    "color": {
+      "text":"#ff6726",
+      "background":"#612e25"
+    },
+    "logo":"dash.png",
+    "tickerName":"BTC_XMR"
+  }
+}

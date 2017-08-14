@@ -25,6 +25,7 @@ app.use(sassMiddleware({
 // Note: you must place sass-middleware *before* `express.static` or else it will
 // not work.
 app.use('/', express.static(path.join(__dirname, 'public')));
+app.use('/', express.static(path.join(__dirname, 'config')));
 app.use('/', express.static(path.join(__dirname, 'bower_components')));
 
 
@@ -92,10 +93,10 @@ function getCoinMarketCapPrices(callback){
 
 function getAtlcoins(){
     getPoloPrices(function(){
-        getCoinMarketCapPrices(function(){
+        // getCoinMarketCapPrices(function(){
             getPoloChartData(function(){
                 sendPrices();
-            });
+            // });
         })
     });
 }
