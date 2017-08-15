@@ -138,12 +138,12 @@ function makeGraph(data, ticker, color, compare) {
             price = data[i].open;
         }
         labels.push(data[i].date);
-        points.push(data[i].open);
-        if(data[i].high > highest){
-            highest = data[i].open;
+        points.push(price);
+        if(price > highest){
+            highest = price;
         }
-        if(data[i].high < lowest){
-            lowest = data[i].open;
+        if(price < lowest){
+            lowest = price;
         }
 
     }
@@ -171,7 +171,7 @@ function makeGraph(data, ticker, color, compare) {
             scales: {
                 yAxes: [{
                     ticks: {
-                        min: lowest,
+                        min: lowest *.99,
                         max: highest * 1.01
                     },
                     display: false

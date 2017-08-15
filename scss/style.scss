@@ -90,7 +90,7 @@ body, html {
     height: auto;
   }
   .price-box{
-    overflow: hidden;
+    position:relative;
   }
   .price {
     color: $bitcoin-orange;
@@ -193,4 +193,24 @@ body, html {
 
 canvas{
   height:100% !important;
+}
+.graph-box{
+  width:100%;
+  position: absolute;
+  top: -5px;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  opacity: 0.7;
+  background: rgba(255,255,255,0.1);
+  &:after{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: "";
+    display: block;
+    box-shadow: inset 30px 0px 30px -30px rgba(0,0,0,0.8), inset -30px 0px 30px -30px rgba(0,0,0,0.8);
+  }
 }
