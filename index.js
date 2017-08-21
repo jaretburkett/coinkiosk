@@ -84,7 +84,7 @@ function getPoloChartData(callback){
                 for(let ticker in price){
                     chartData[ticker].googleTrend = [];
                     for(let i = 0; i < data.length; i++) {
-                        chartData[ticker].googleTrend.push({date: data[i].time, value: data[i].value[pos]});
+                        chartData[ticker].googleTrend.push({date: parseInt(data[i].time), value: data[i].value[pos]});
                     }
                     pos++;
                 }

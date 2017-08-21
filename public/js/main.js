@@ -123,7 +123,13 @@ function textFill() {
     // $('.price').css('fontSize',size + 'px').css('lineHeight', $('.price').height()+'px');
 }
 
+function mapValue(yValue, yMin,yMax, xMin, xMax){
+    var percent = (yValue - yMin) / (yMax - yMin);
+    return percent * (xMax - xMin) + xMin;
+}
+
 function makeGraph(data, ticker, color, compare) {
+    console.log(data);
     // do price
     var labels = [];
     var points = [];
@@ -150,10 +156,11 @@ function makeGraph(data, ticker, color, compare) {
     var trendPoints = [];
     var trendHighest = 0;
     var trendLowest = 999999999999999999;
+    var thisValue;
+
+    // determine high and low for trends
     for (var i = 0; i < data.googleTrend.length; i++) {
-        var thisValue = data.googleTrend[i].value;
-        trendLabels.push(data.googleTrend[i].date);
-        trendPoints.push({x: moment(data.googleTrend[i].date), y: thisValue});
+        thisValue = data.googleTrend[i].value;
         if (thisValue > trendHighest) {
             trendHighest = thisValue;
         }
@@ -162,44 +169,30 @@ function makeGraph(data, ticker, color, compare) {
         }
     }
 
+    for (var i = 0; i < data.googleTrend.length; i++) {
+        thisValue = data.googleTrend[i].value;
+        // new value mapped to price
+        thisValue = mapValue(thisValue, 0, trendHighest, lowest, highest);
+        trendLabels.push(data.googleTrend[i].date);
+        trendPoints.push({x: moment(data.googleTrend[i].date), y: thisValue});
+    }
+
     var config = {
         type: 'line',
         data: {
             labels: labels,
             datasets: [{
-                backgroundColor: '#444',
-                borderColor: '#444',
+                backgroundColor: 'rgba(0,0,0,0.8)',
+                borderColor: 'rgba(0,0,0,0.8)',
                 data: trendPoints,
                 fill: false,
-                radius: 0,
-                scales: {
-                    xAxes: [{
-                        type:'time'
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            min: trendLowest * .99,
-                            max: trendHighest * 1.01
-                        }
-                    }]
-                }
+                radius: 0
             },{
                 backgroundColor: color,
                 borderColor: color,
                 data: points,
                 fill: true,
                 radius: 0,
-                scales: {
-                    xAxes: [{
-                        type:'time'
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            min: lowest * .99,
-                            max: highest * 1.01
-                        }
-                    }]
-                }
             }]
         },
         options: {
@@ -217,7 +210,11 @@ function makeGraph(data, ticker, color, compare) {
                 }],
                 xAxes: [{
                     display: false,
-                    type:"time"
+                    type:"time",
+                    ticks: {
+                        min: lowest * .99,
+                        max: highest * 1.01
+                    }
                 }]
             }
         }

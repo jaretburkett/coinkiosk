@@ -9,11 +9,11 @@ let returnData = {};
 function trendSection(pos, callback){
     // set options
     let startTime = new Date();
+    let endTime = new Date();
     startTime.setDate(startTime.getDate() - 1); // 1 day
     let opt = {
         keyword:searchArr[pos],
-        startTime:startTime,
-        endTime: new Date(Date.now())
+        startTime:startTime
     };
     // console.log(opt);
     googleTrends.interestOverTime(opt, function(err, results){
