@@ -4,16 +4,15 @@ var chartData = {};
 var charts = {};
 
 var color = {
-    BTC:'#eda049',
-    BCH:'#66991b',
-    ZEC:'#e2e2e2',
-    LTC:'#bebebe',
-    ETH:'#8a92b2',
-    ETC:'#9bcf91',
-    DASH:'#0075ba',
-    XMR:'#ff6726'
+    BTC: '#eda049',
+    BCH: '#66991b',
+    ZEC: '#e2e2e2',
+    LTC: '#bebebe',
+    ETH: '#8a92b2',
+    ETC: '#9bcf91',
+    DASH: '#0075ba',
+    XMR: '#ff6726'
 };
-
 
 
 $(function () {
@@ -22,13 +21,12 @@ $(function () {
     });
     // var socket = io();
     socket.on('chartData', function (data) {
-        // console.log(data);
         chartData = data;
-        for(let ticker in chartData){
-            if(ticker === 'BTC'){
-                makeGraph(chartData.BTC,ticker, color.BTC, false);
+        for (let ticker in chartData) {
+            if (ticker === 'BTC') {
+                makeGraph(chartData.BTC, ticker, color.BTC, false);
             } else {
-                makeGraph(chartData[ticker],ticker, color[ticker], chartData.BTC);
+                makeGraph(chartData[ticker], ticker, color[ticker], chartData.BTC);
             }
         }
     });
@@ -126,41 +124,86 @@ function textFill() {
 }
 
 function makeGraph(data, ticker, color, compare) {
+    // do price
     var labels = [];
     var points = [];
     var highest = 0;
     var lowest = 999999999999999999;
-    for(var i = 0; i < data.length; i++){
+    for (var i = 0; i < data.price.length; i++) {
         var price;
-        if(compare){
-            price = data[i].open * compare[i].open;
+        if (compare) {
+            price = data.price[i].open * compare.price[i].open;
         } else {
-            price = data[i].open;
+            price = data.price[i].open;
         }
-        labels.push(data[i].date);
-        points.push(price);
-        if(price > highest){
+        labels.push(data.price[i].date);
+        points.push({x: moment(data.price[i].date), y: price});
+        if (price > highest) {
             highest = price;
         }
-        if(price < lowest){
+        if (price < lowest) {
             lowest = price;
         }
-
     }
+    // do trends
+    var trendLabels = [];
+    var trendPoints = [];
+    var trendHighest = 0;
+    var trendLowest = 999999999999999999;
+    for (var i = 0; i < data.googleTrend.length; i++) {
+        var thisValue = data.googleTrend[i].value;
+        trendLabels.push(data.googleTrend[i].date);
+        trendPoints.push({x: moment(data.googleTrend[i].date), y: thisValue});
+        if (thisValue > trendHighest) {
+            trendHighest = thisValue;
+        }
+        if (thisValue < trendLowest) {
+            trendLowest = thisValue;
+        }
+    }
+
     var config = {
         type: 'line',
         data: {
             labels: labels,
             datasets: [{
+                backgroundColor: '#444',
+                borderColor: '#444',
+                data: trendPoints,
+                fill: false,
+                radius: 0,
+                scales: {
+                    xAxes: [{
+                        type:'time'
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: trendLowest * .99,
+                            max: trendHighest * 1.01
+                        }
+                    }]
+                }
+            },{
                 backgroundColor: color,
                 borderColor: color,
                 data: points,
                 fill: true,
-                radius: 0
+                radius: 0,
+                scales: {
+                    xAxes: [{
+                        type:'time'
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: lowest * .99,
+                            max: highest * 1.01
+                        }
+                    }]
+                }
             }]
         },
         options: {
-            animation : false,
+            animation: false,
             legend: {
                 display: false
             },
@@ -170,19 +213,16 @@ function makeGraph(data, ticker, color, compare) {
             },
             scales: {
                 yAxes: [{
-                    ticks: {
-                        min: lowest *.99,
-                        max: highest * 1.01
-                    },
                     display: false
                 }],
                 xAxes: [{
-                    display: false
+                    display: false,
+                    type:"time"
                 }]
             }
         }
     };
-    var ctx = document.getElementById(ticker+"-canvas").getContext("2d");
-    $('#'+ticker+'-canvas').siblings('.chartjs-hidden-iframe').remove();
+    var ctx = document.getElementById(ticker + "-canvas").getContext("2d");
+    $('#' + ticker + '-canvas').siblings('.chartjs-hidden-iframe').remove();
     charts[ticker] = new Chart(ctx, config);
 }

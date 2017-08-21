@@ -1,47 +1,18 @@
 const Poloniex = require('poloniex.js');
 const poloniex = new Poloniex();
 const moment = require('moment');
+const coins = require('../config/coins.json');
 
 const request = require('request-json');
 const polo = request.createClient('https://poloniex.com');
 
 const chartData={};
+let cur = [];
 
-const cur = [
-    {
-        objKey:'BTC',
-        tickerName:'USDT_BTC'
-    },
-    {
-        objKey:'ZEC',
-        tickerName:'BTC_ZEC'
-    },
-    {
-        objKey:'XMR',
-        tickerName:'BTC_XMR'
-    },
-    {
-        objKey:'DASH',
-        tickerName:'BTC_DASH'
-    },
-    {
-        objKey:'ETH',
-        tickerName:'BTC_ETH'
-    },
-    {
-        objKey:'ETC',
-        tickerName:'BTC_ETC'
-    },
-    {
-        objKey:'LTC',
-        tickerName:'BTC_LTC'
-    },
-    {
-        objKey:'BCH',
-        tickerName:'BTC_BCH'
-    }
-];
-
+// build currency object
+for(let key in coins){
+    cur.push({objKey:key, tickerName:coins[key].tickerName});
+}
 
 const getPrices = function(callback){
     poloniex.returnTicker(function(err, data) {

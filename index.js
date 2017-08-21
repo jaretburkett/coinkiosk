@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const coinbase = require('./modules/coinbase');
 const polo = require('./modules/poloniex');
+const googleTrends = require('./modules/googleTrends');
 const sassMiddleware = require('node-sass-middleware');
 const http = require('http').Server(app);
 const cmc = require('./modules/coinMarketCap');
@@ -71,10 +72,25 @@ function getPoloChartData(callback){
             console.log(err);
         } else {
             for(let ticker in price){
-                chartData[ticker] = price[ticker];
+                chartData[ticker] = {};
+                chartData[ticker].price = price[ticker];
             }
+            // get google trends
+            googleTrends.getTrends(function(err, data){
+                if(err){
+                    console.log('Tends error:', err);
+                }
+                let pos = 0;
+                for(let ticker in price){
+                    chartData[ticker].googleTrend = [];
+                    for(let i = 0; i < data.length; i++) {
+                        chartData[ticker].googleTrend.push({date: data[i].time, value: data[i].value[pos]});
+                    }
+                    pos++;
+                }
+                callback();
+            });
         }
-        callback();
     });
 }
 
