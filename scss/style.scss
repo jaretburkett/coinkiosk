@@ -8,6 +8,7 @@ $fa-font-path: "/font-awesome/fonts";
 html, body {
   background: #444444;
   color: #eee;
+  overflow: hidden;
 }
 
 body, html {
@@ -182,6 +183,18 @@ body, html {
     background: #142e3e;
     .price {
       color: #0075ba;
+    }
+    .title {
+      img {
+        //padding:0 1px;
+      }
+    }
+  }
+  // ripple
+  &.ripple {
+    background: #8d9aaa;
+    .price {
+      color: #474d55;
     }
     .title {
       img {

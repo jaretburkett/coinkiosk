@@ -9,6 +9,7 @@ const http = require('http').Server(app);
 const cmc = require('./modules/coinMarketCap');
 const io = require('socket.io')(http);
 const port = process.env.PORT || 8484;
+const coins = require('./config/coins.json');
 
 let isFirstRun = true;
 
@@ -74,6 +75,7 @@ function getPoloChartData(callback){
             for(let ticker in price){
                 chartData[ticker] = {};
                 chartData[ticker].price = price[ticker];
+                chartData[ticker].color = coins[ticker].color;
             }
             // get google trends
             googleTrends.getTrends(function(err, data){

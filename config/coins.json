@@ -58,7 +58,7 @@
       "text":"#0075ba",
       "background":"#142e3e"
     },
-    "logo":"monero.png",
+    "logo":"dash.png",
     "tickerName":"BTC_DASH",
     "seatchTerm":"monero"
   },
@@ -67,8 +67,17 @@
       "text":"#ff6726",
       "background":"#612e25"
     },
-    "logo":"dash.png",
+    "logo":"monero.png",
     "tickerName":"BTC_XMR",
     "seatchTerm":"dash"
+  },
+  "XRP": {
+    "color": {
+      "text":"#474d55",
+      "background":"#8d9aaa"
+    },
+    "logo":"ripple.svg",
+    "tickerName":"BTC_XRP",
+    "seatchTerm":"ripple"
   }
 }
