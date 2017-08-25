@@ -10,7 +10,7 @@ $(function () {
     });
     // var socket = io();
     socket.on('chartData', function (data) {
-        console.log(data);
+        // console.log(data);
         chartData = data;
         for (let ticker in chartData) {
             if (ticker === 'BTC') {
@@ -123,7 +123,7 @@ function mapValue(yValue, yMin,yMax, xMin, xMax){
 }
 
 function makeGraph(data, ticker, color, compare) {
-    console.log(data);
+    // console.log(data);
     // do price
     var labels = [];
     var points = [];
