@@ -77,21 +77,21 @@ function getPoloChartData(callback){
                 chartData[ticker].price = price[ticker];
                 chartData[ticker].color = coins[ticker].color;
             }
-            // get google trends
-            googleTrends.getTrends(function(err, data){
-                if(err){
-                    console.log('Tends error:', err);
-                }
-                let pos = 0;
-                for(let ticker in price){
-                    chartData[ticker].googleTrend = [];
-                    for(let i = 0; i < data.length; i++) {
-                        chartData[ticker].googleTrend.push({date: parseInt(data[i].time), value: data[i].value[pos]});
-                    }
-                    pos++;
-                }
+            // // get google trends
+            // googleTrends.getTrends(function(err, data){
+            //     if(err){
+            //         console.log('Tends error:', err);
+            //     }
+            //     let pos = 0;
+            //     for(let ticker in price){
+            //         chartData[ticker].googleTrend = [];
+            //         for(let i = 0; i < data.length; i++) {
+            //             chartData[ticker].googleTrend.push({date: parseInt(data[i].time), value: data[i].value[pos]});
+            //         }
+            //         pos++;
+            //     }
                 callback();
-            });
+            // });
         }
     });
 }

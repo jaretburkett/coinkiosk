@@ -145,50 +145,53 @@ function makeGraph(data, ticker, color, compare) {
             lowest = price;
         }
     }
-    // do trends
-    var trendLabels = [];
-    var trendPoints = [];
-    var trendHighest = 0;
-    var trendLowest = 999999999999999999;
-    var thisValue;
-
-    // determine high and low for trends
-    for (var i = 0; i < data.googleTrend.length; i++) {
-        thisValue = data.googleTrend[i].value;
-        if (thisValue > trendHighest) {
-            trendHighest = thisValue;
-        }
-        if (thisValue < trendLowest) {
-            trendLowest = thisValue;
-        }
-    }
-
-    for (var i = 0; i < data.googleTrend.length; i++) {
-        thisValue = data.googleTrend[i].value;
-        // new value mapped to price
-        thisValue = mapValue(thisValue, 0, trendHighest, lowest, highest);
-        trendLabels.push(data.googleTrend[i].date);
-        trendPoints.push({x: moment(data.googleTrend[i].date), y: thisValue});
-    }
+    // // do trends
+    // var trendLabels = [];
+    // var trendPoints = [];
+    // var trendHighest = 0;
+    // var trendLowest = 999999999999999999;
+    // var thisValue;
+    //
+    // // determine high and low for trends
+    // for (var i = 0; i < data.googleTrend.length; i++) {
+    //     thisValue = data.googleTrend[i].value;
+    //     if (thisValue > trendHighest) {
+    //         trendHighest = thisValue;
+    //     }
+    //     if (thisValue < trendLowest) {
+    //         trendLowest = thisValue;
+    //     }
+    // }
+    //
+    // for (var i = 0; i < data.googleTrend.length; i++) {
+    //     thisValue = data.googleTrend[i].value;
+    //     // new value mapped to price
+    //     thisValue = mapValue(thisValue, 0, trendHighest, lowest, highest);
+    //     trendLabels.push(data.googleTrend[i].date);
+    //     trendPoints.push({x: moment(data.googleTrend[i].date), y: thisValue});
+    // }
 
     var config = {
         type: 'line',
         data: {
             labels: labels,
-            datasets: [{
-                backgroundColor: 'rgba(255,255,255,0.8)',
-                borderColor: 'rgba(255,255,255,0.8)',
-                data: trendPoints,
-                fill: false,
-                radius: 0,
-                borderWidth: 1
-            },{
+            datasets: [
+            //     {
+            //     backgroundColor: 'rgba(255,255,255,0.8)',
+            //     borderColor: 'rgba(255,255,255,0.8)',
+            //     data: trendPoints,
+            //     fill: false,
+            //     radius: 0,
+            //     borderWidth: 1
+            // },
+                {
                 backgroundColor: color,
                 borderColor: color,
                 data: points,
                 fill: true,
                 radius: 0
-            }]
+            }
+            ]
         },
         options: {
             animation: false,
