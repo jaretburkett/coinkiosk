@@ -79,5 +79,14 @@
     "logo":"ripple.svg",
     "tickerName":"BTC_XRP",
     "seatchTerm":"ripple"
+  },
+  "FCT": {
+    "color": {
+      "text":"#d6e3ec",
+      "background":"#0f75bc"
+    },
+    "logo":"factom.png",
+    "tickerName":"BTC_FCT",
+    "seatchTerm":"factom"
   }
 }

@@ -1,70 +1,81 @@
-var socket = io();
+var socket;
 var btcPrice = 0;
 var chartData = {};
 var charts = {};
+var coins = {};
 
 
 $(function () {
     $(window).resize(function () {
         sizeFix();
     });
-    // var socket = io();
-    socket.on('chartData', function (data) {
-        // console.log(data);
-        chartData = data;
-        for (let ticker in chartData) {
-            if (ticker === 'BTC') {
-                makeGraph(chartData.BTC, ticker, chartData.BTC.color.text, false);
-            } else {
-                makeGraph(chartData[ticker], ticker, chartData[ticker].color.text, chartData.BTC);
+    // first get coins config
+    $.get('/coins.json', function (data) {
+        console.log(data);
+        socket = io();
+        coins = data;
+        buildPriceBoxes();
+        // var socket = io();
+        socket.on('chartData', function (data) {
+            // console.log(data);
+            chartData = data;
+            for (let ticker in chartData) {
+                if (ticker === 'BTC') {
+                    makeGraph(chartData.BTC, ticker, coins[ticker].color.text, false);
+                } else {
+                    makeGraph(chartData[ticker], ticker, coins[ticker].color.text, chartData.BTC);
+                }
             }
-        }
+        });
+        socket.on('bitcoinPrice', function (bitcoinPrice) {
+            $('.bitcoin-price').html(formatNumber(bitcoinPrice));
+            btcPrice = parseFloat(bitcoinPrice);
+        });
+        socket.on('altPrices', function (price) {
+            for(var key in price){
+                $('.'+key+'-price').html(parseFloat(price[key]).toFixed(8));
+                $('.'+key+'-usd-price').html(btcToUsd(price[key]));
+                $('.bitcoin-price-box.'+key+'').attr('data-price', parseFloat(price[key]).toFixed(8) * 100000000);
+            }
+            // sort them sortDivs
+            sortDivs();
+        });
+        socket.on('reload', function (data) {
+            location.reload();
+        });
+        sizeFix();
     });
-    socket.on('bitcoinPrice', function (bitcoinPrice) {
-        $('.bitcoin-price').html(formatNumber(bitcoinPrice));
-        btcPrice = parseFloat(bitcoinPrice);
-    });
-    socket.on('altPrices', function (price) {
-        $('.bch-price').html(parseFloat(price.BCH).toFixed(8));
-        $('.bch-usd-price').html(btcToUsd(price.BCH));
-        $('.bitcoin-price-box.bch').attr('data-price', parseFloat(price.BCH).toFixed(8) * 100000000);
-
-        $('.etherium-price').html(parseFloat(price.ETH).toFixed(8));
-        $('.etherium-usd-price').html(btcToUsd(price.ETH));
-        $('.bitcoin-price-box.etherium').attr('data-price', parseFloat(price.ETH).toFixed(8) * 100000000);
-
-        $('.etheriumClassic-price').html(parseFloat(price.ETC).toFixed(8));
-        $('.etheriumClassic-usd-price').html(btcToUsd(price.ETC));
-        $('.bitcoin-price-box.etheriumClassic').attr('data-price', parseFloat(price.ETC).toFixed(8) * 100000000);
-
-        $('.ltc-price').html(parseFloat(price.LTC).toFixed(8));
-        $('.ltc-usd-price').html(btcToUsd(price.LTC));
-        $('.bitcoin-price-box.ltc').attr('data-price', parseFloat(price.LTC).toFixed(8) * 100000000);
-
-        $('.zcash-price').html(parseFloat(price.ZEC).toFixed(8));
-        $('.zcash-usd-price').html(btcToUsd(price.ZEC));
-        $('.bitcoin-price-box.zcash').attr('data-price', parseFloat(price.ZEC).toFixed(8) * 100000000);
-
-        $('.dash-price').html(parseFloat(price.DASH).toFixed(8));
-        $('.dash-usd-price').html(btcToUsd(price.DASH));
-        $('.bitcoin-price-box.dash').attr('data-price', parseFloat(price.DASH).toFixed(8) * 100000000);
-
-        $('.monero-price').html(parseFloat(price.XMR).toFixed(8));
-        $('.monero-usd-price').html(btcToUsd(price.XMR));
-        $('.bitcoin-price-box.monero').attr('data-price', parseFloat(price.XMR).toFixed(8) * 100000000);
-
-        $('.xrp-price').html(parseFloat(price.XRP).toFixed(8));
-        $('.xrp-usd-price').html(btcToUsd(price.XRP));
-        $('.bitcoin-price-box.ripple').attr('data-price', parseFloat(price.XRP).toFixed(8) * 100000000);
-
-        // sort them sortDivs
-        sortDivs();
-    });
-    socket.on('reload', function (data) {
-        location.reload();
-    });
-    sizeFix();
 });
+
+function buildPriceBoxes() {
+    var str = '';
+    console.log(coins);
+    for(var key in coins) {
+        if (key !== 'BTC') {
+            str += '<div class="bitcoin-price-box ' + key + '" data-price="0" style="background:'+coins[key].color.background+'">' +
+                '<div class="row">' +
+                '<div class="col-xs-4 logo-box">' +
+                '<div class="coin-logo" style="background-image:url(/img/' + coins[key].logo + ')"></div>' +
+                '</div>' +
+                '<div class="col-xs-4 text-center price-box">' +
+                '<div class="graph-box">' +
+                '<canvas id="'+key+'-canvas"></canvas>' +
+                '</div>' +
+                '</div>' +
+                '<div class="col-xs-4 text-center price-box">' +
+                '<div class="price" style="color:'+coins[key].color.text+'">' +
+                '$<span class="'+key+'-usd-price"></span>' +
+                '<div class="price2">' +
+                '<i class="fa fa-btc" aria-hidden="true"></i> <span class="'+key+'-price"></span>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+        }
+    }
+    $('#sortable').html(str);
+}
 
 function btcToUsd(btcAmount) {
     return formatNumber((parseFloat(btcAmount) * btcPrice).toFixed(2));
@@ -117,13 +128,13 @@ function textFill() {
     // $('.price').css('fontSize',size + 'px').css('lineHeight', $('.price').height()+'px');
 }
 
-function mapValue(yValue, yMin,yMax, xMin, xMax){
+function mapValue(yValue, yMin, yMax, xMin, xMax) {
     var percent = (yValue - yMin) / (yMax - yMin);
     return percent * (xMax - xMin) + xMin;
 }
 
 function makeGraph(data, ticker, color, compare) {
-    // console.log(data);
+    console.log(ticker);
     // do price
     var labels = [];
     var points = [];
@@ -176,21 +187,21 @@ function makeGraph(data, ticker, color, compare) {
         data: {
             labels: labels,
             datasets: [
-            //     {
-            //     backgroundColor: 'rgba(255,255,255,0.8)',
-            //     borderColor: 'rgba(255,255,255,0.8)',
-            //     data: trendPoints,
-            //     fill: false,
-            //     radius: 0,
-            //     borderWidth: 1
-            // },
+                //     {
+                //     backgroundColor: 'rgba(255,255,255,0.8)',
+                //     borderColor: 'rgba(255,255,255,0.8)',
+                //     data: trendPoints,
+                //     fill: false,
+                //     radius: 0,
+                //     borderWidth: 1
+                // },
                 {
-                backgroundColor: color,
-                borderColor: color,
-                data: points,
-                fill: true,
-                radius: 0
-            }
+                    backgroundColor: color,
+                    borderColor: color,
+                    data: points,
+                    fill: true,
+                    radius: 0
+                }
             ]
         },
         options: {
@@ -208,7 +219,7 @@ function makeGraph(data, ticker, color, compare) {
                 }],
                 xAxes: [{
                     display: false,
-                    type:"time",
+                    type: "time",
                     ticks: {
                         min: lowest * .99,
                         max: highest * 1.01
